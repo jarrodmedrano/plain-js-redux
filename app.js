@@ -1,6 +1,6 @@
 "use strict";
 (function () {
-    document.addEventListener("DOMContentLoaded", function (event) {
+    document.addEventListener('DOMContentLoaded', function (event) {
         var counterDiv = document.getElementById('counter-detail');
         // COUNT UP Action
         var COUNT_UP = "COUNT_UP";
@@ -35,18 +35,24 @@
         }, false);
         // UI state change method
         function render() {
-            counterDiv.innerHTML = 'Count is ' + store.toString();
+            if (counterDiv) {
+                counterDiv.innerHTML = 'Count is ' + store.toString();
+            }
         }
         document.addEventListener('state', render);
         render();
-        // UI event handler
+        // UI event handlers
         var countUpButton = document.getElementById('countup-button');
-        countUpButton.addEventListener("click", function () {
-            document.dispatchEvent(new CustomEvent('action', { detail: countUp() }));
-        });
+        if (countUpButton) {
+            countUpButton.addEventListener("click", function () {
+                document.dispatchEvent(new CustomEvent('action', { detail: countUp() }));
+            });
+        }
         var countDownButton = document.getElementById('countdown-button');
-        countDownButton.addEventListener("click", function () {
-            document.dispatchEvent(new CustomEvent('action', { detail: countDown() }));
-        });
+        if (countDownButton) {
+            countDownButton.addEventListener("click", function () {
+                document.dispatchEvent(new CustomEvent('action', { detail: countDown() }));
+            });
+        }
     });
 }());
