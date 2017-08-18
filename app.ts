@@ -2,6 +2,7 @@
 
     document.addEventListener('DOMContentLoaded', function (event: Event): void {
 
+        //contains the result
         let counterDiv = document.getElementById('counter-detail');
 
         // COUNT UP Action
@@ -34,7 +35,8 @@
 
         // State Store
         let store = 0; // Initial state
-
+    
+        //Listen for actions
         document.addEventListener('action', function (e: CustomEvent) {
             store = reducer(store, e.detail);
             document.dispatchEvent(new CustomEvent('state'));
@@ -47,6 +49,7 @@
             }
         }
 
+        //Listen for state changes and call render method
         document.addEventListener('state', render);
 
         render();
