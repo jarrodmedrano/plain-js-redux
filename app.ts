@@ -35,10 +35,16 @@
 
         // State Store
         let store = 0; // Initial state
-    
+
+        function isCustomEvent(event: Event): event is CustomEvent {
+            return 'detail' in event;
+        }
+
         //Listen for actions
-        document.addEventListener('action', function (e: CustomEvent) {
-            store = reducer(store, e.detail);
+        document.addEventListener('action', function (e: Event) {
+            if (!isCustomEvent(e))
+                throw new Error('not a custom event');
+                store = reducer(store, e.detail);
             document.dispatchEvent(new CustomEvent('state'));
         }, false);
 
